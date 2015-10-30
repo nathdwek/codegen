@@ -1,8 +1,16 @@
 from symbol import Symbol
 from source import Source
-from algos import weaver, fanno
+from algos import weaver, fanno, _flatSum, _miniPair
 from benchmark import benchmark
 
+
+a = [1, 2, 3, 4, 5, 6]
+while len(a) > 2:
+    print(_miniPair(a))
+    print(a)
+
+
+"""
 a = Symbol('A', 0.3)
 b = Symbol('b', 0.25)
 c = Symbol('c', 0.2)
@@ -30,3 +38,4 @@ for sym in s.sorted():
     print(sym.name(), ' ', c.codeOf(sym), ' ', c2.codeOf(sym))
 benchmark(s, c)
 benchmark(s, c2)
+"""
