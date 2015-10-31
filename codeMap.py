@@ -15,4 +15,13 @@ class CodeMap(object):
         return self._map.__iter__()
 
     def codeOf(self, symbol):
-        return self._map[symbol]
+        res = ''
+        if symbol in self._map:
+            res = self._map[symbol]
+        return res
+
+    def kraft(self):
+        res = 0
+        for symbol in self._map:
+            res += 2**-len(self.codeOf(symbol))
+        return res

@@ -55,11 +55,11 @@ def huffman(source):
 
 def _huffman(sortedSymbols, codeMap):
     pair = _miniPair(sortedSymbols)
-    for symbol in pair[0]:   # todo need sometg flat here
-        codeMap.mapSymbol(symbol.codeOf(symbol)+'0')
-    for symbol in pair[1]:
-        codeMap.mapSymbol(symbol.codeOf(symbol)+'1')
-    if len(sortedSymbols) <= 2:
+    for symbol in _flatten(pair[0]):
+        codeMap.mapSymbol(symbol, codeMap.codeOf(symbol)+'0')
+    for symbol in _flatten(pair[1]):
+        codeMap.mapSymbol(symbol, codeMap.codeOf(symbol)+'1')
+    if len(sortedSymbols) < 2:
         return codeMap
     else:
         return _huffman(sortedSymbols, codeMap)
@@ -88,5 +88,15 @@ def _flatSum(aggregatedSymbols):
         for elem in aggregatedSymbols:
             res += _flatSum(elem)
     else:
-        res = aggregatedSymbols
+        res = aggregatedSymbols.proba()
+    return res
+
+
+def _flatten(ls):
+    res = []
+    if type(ls) == list:
+        for elem in ls:
+            res += _flatten(elem)
+    else:
+        res = [ls]
     return res

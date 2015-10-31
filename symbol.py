@@ -9,3 +9,6 @@ class Symbol(object):
 
     def name(self):
         return self._name
+
+    def __repr__(self):
+        return str((self.name(), self.proba()))
