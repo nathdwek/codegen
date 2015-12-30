@@ -1,6 +1,6 @@
 from symbol import Symbol
 from source import Source
-from algos import weaver, fanno, huffman
+from algos import weaver, fanno, huffman, block
 from benchmark import benchmark
 
 a = Symbol('A', 2**-5)
@@ -20,7 +20,7 @@ l = Symbol('l', 0.125)
 m = Symbol('m', 0.125)
 
 s = Source(d, b, f, a, e, c, g, h)
-c = huffman(s)
+c = block(s)
 
 
 for sym in s.sorted():

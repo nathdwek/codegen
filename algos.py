@@ -1,4 +1,5 @@
 from codeMap import CodeMap
+from math import ceil, log2 as bb
 
 
 def weaver(source):
@@ -99,4 +100,22 @@ def _flatten(ls):
             res += _flatten(elem)
     else:
         res = [ls]
+    return res
+
+
+def block(source):
+    source.check()
+    codeMap = CodeMap()
+    count = 0
+    blockLength = ceil(bb(len(source)))
+    for symbol in source.sorted():
+        codeMap.mapSymbol(symbol, _paddedBinary(count, blockLength))
+        count += 1
+    return codeMap
+
+
+def _paddedBinary(number, length):
+    res = bin(number)[2:]
+    if len(res) < length:
+        res = '0' * (length-len(res)) + res
     return res
