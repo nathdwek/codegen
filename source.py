@@ -1,4 +1,4 @@
-from util import bb
+from math import log2 as bb
 
 
 class Source(object):
