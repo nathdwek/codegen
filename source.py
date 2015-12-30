@@ -12,6 +12,9 @@ class Source(object):
         self._symbols.append(symbol)
         self._entropy -= symbol.proba()*bb(symbol.proba())
 
+    def names(self):
+        return list(map(lambda sym: sym.name(), self._symbols))
+
     def entropy(self):
         return self._entropy
 

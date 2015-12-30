@@ -5,7 +5,7 @@ from math import ceil, log2 as bb
 def weaver(source):
     source.check()
     code = ''
-    codeMap = CodeMap()
+    codeMap = CodeMap('Shannon-Weaver')
     for symbol in source.sorted()[:-1]:
         codeMap.mapSymbol(symbol, code+'0')
         code += '1'
@@ -15,7 +15,7 @@ def weaver(source):
 
 def fanno(source):
     source.check()
-    codeMap = CodeMap()
+    codeMap = CodeMap('Shannon-Fanno')
     _fanno(source.sorted(), '', codeMap)
     return codeMap
 
@@ -50,7 +50,7 @@ def _medianIndex(sortedSymbols):
 
 def huffman(source):
     source.check()
-    codeMap = CodeMap()
+    codeMap = CodeMap('Huffman')
     return _huffman(source.sorted(), codeMap)
 
 
@@ -67,7 +67,7 @@ def _huffman(sortedSymbols, codeMap):
 
 
 def _miniPair(aggregatedSymbols):
-    minimum = 100  # Sum of probas always == 1
+    minimum = 2  # Sum of probas always == 1 => init minimum too high
     pair = ()
     pairIndexes = ()
     for i in range(len(aggregatedSymbols)):
@@ -105,7 +105,7 @@ def _flatten(ls):
 
 def block(source):
     source.check()
-    codeMap = CodeMap()
+    codeMap = CodeMap('Blockcode')
     count = 0
     blockLength = ceil(bb(len(source)))
     for symbol in source.sorted():
