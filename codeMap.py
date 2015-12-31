@@ -1,3 +1,6 @@
+from decimal import Decimal as d
+
+
 class CodeMap(object):
     def __init__(self, name):
         self._map = {}
@@ -21,7 +24,7 @@ class CodeMap(object):
     def kraft(self):
         res = 0
         for symbol in self._map:
-            res += 2**-len(self.codeOf(symbol))
+            res += d(2)**-len(self.codeOf(symbol))
         return res
 
     def name(self):

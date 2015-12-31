@@ -3,6 +3,7 @@ from source import Source
 from algos import weaver, fanno, huffman, block
 from benchmark import benchmark
 from string import ascii_uppercase as alphabet
+from decimal import Decimal as d
 
 
 def _sourceFromInput():
@@ -50,7 +51,7 @@ def _sanitizeName(name, autoName):
 def _sanitizeProba(probaString, autoProba):
     probaString = probaString.strip()
     try:
-        proba = eval(probaString)
+        proba = _dEval(probaString)
         if proba < 0 or proba > autoProba:
             proba = -1
     except:
@@ -61,11 +62,39 @@ def _sanitizeProba(probaString, autoProba):
     return proba
 
 
+def _dEval(expr):
+    tokens = []
+    currentToken = expr[0]
+    operator = not(currentToken in '0123456789.')
+    # True: current token is operator
+    # False: current token is number
+    for char in expr[1:]:
+        if char in '0123456789.':
+            if not operator:
+                currentToken += char
+            else:
+                operator = False
+                tokens.append(currentToken)
+                currentToken = char
+        else:
+            if operator:
+                currentToken += char
+            else:
+                operator = True
+                tokens.append('d('+currentToken+')')
+                currentToken = char
+    if operator:
+        tokens.append(currentToken)
+    else:
+        tokens.append("d('"+currentToken+"')")
+    return eval(''.join(tokens))
+
+
 def _createAutoProba(source):
-    total = 0
+    total = d(0)
     for sym in source:
         total += sym.proba()
-    return 1 - total
+    return d(1) - total
 
 
 def _createAutoName(count, source):

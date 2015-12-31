@@ -1,16 +1,17 @@
 from math import log2 as bb
+from decimal import Decimal as d
 
 
 class Source(object):
     def __init__(self, *symbols):
         self._symbols = []
-        self._entropy = 0
+        self._entropy = d(0)
         for symbol in symbols:
             self.addSymbol(symbol)
 
     def addSymbol(self, symbol):
         self._symbols.append(symbol)
-        self._entropy -= symbol.proba()*bb(symbol.proba())
+        self._entropy -= symbol.proba()*d(bb(symbol.proba()))
 
     def names(self):
         return list(map(lambda sym: sym.name(), self._symbols))
@@ -19,7 +20,7 @@ class Source(object):
         return self._entropy
 
     def check(self):
-        tot = 0
+        tot = d(0)
         for symbol in self._symbols:
             tot += symbol.proba()
         if tot != 1:
