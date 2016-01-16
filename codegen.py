@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from symbol import Symbol
 from source import Source
 from algos import weaver, fanno, huffman, block
