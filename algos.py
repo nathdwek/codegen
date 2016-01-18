@@ -6,10 +6,11 @@ def weaver(source):
     source.check()
     code = ''
     codeMap = CodeMap('Shannon-Weaver')
-    for symbol in source.sorted()[:-1]:
+    cached = source.sorted()
+    for symbol in cached[:-1]:
         codeMap.mapSymbol(symbol, code+'0')
         code += '1'
-    codeMap.mapSymbol(source.sorted()[-1], code)
+    codeMap.mapSymbol(cached[-1], code)
     return codeMap
 
 
